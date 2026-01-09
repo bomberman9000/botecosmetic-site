@@ -1,0 +1,16 @@
+# Команды для выполнения НА СЕРВЕРЕ (после загрузки архива)
+# Скопируйте и выполните эти команды одну за другой
+
+mkdir -p /var/www/bote-site
+cd /var/www/bote-site
+tar -xzf /tmp/deploy.tar.gz
+rm /tmp/deploy.tar.gz
+npm install
+npm run build
+pm2 delete bote-site 2>/dev/null || true
+pm2 start npm --name "bote-site" -- start
+pm2 save
+pm2 list
+
+
+
