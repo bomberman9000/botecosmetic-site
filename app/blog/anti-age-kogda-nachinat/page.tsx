@@ -247,7 +247,7 @@ export default function AntiAgeArticle() {
                 для омоложения кожи. Подходит для всех типов кожи, включая чувствительную.
               </p>
               <Link
-                href="/products/antiage"
+                href="/products/retinal"
                 className="inline-flex items-center gap-2 bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-button font-medium text-base sm:text-lg hover:bg-accent transition-colors border-2 border-primary min-h-[48px]"
               >
                 Смотреть Anti-Age Pro
@@ -260,4 +260,3 @@ export default function AntiAgeArticle() {
     </article>
   );
 }
-

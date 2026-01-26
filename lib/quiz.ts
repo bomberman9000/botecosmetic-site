@@ -122,27 +122,35 @@ export function getRecommendations(answers: QuizAnswers): string[] {
 
   // Акне и прыщи
   if (problems.includes("акне") || problems.includes("прыщи") || goal === "antiacne") {
-    list.push("multi3", "balancecream", "deepclean");
+    list.push("multi3", "hydrophilic-oil");
   }
 
   // Сухая кожа
-  if (skinType === "сухая" || problems.includes("сухость")) {
-    list.push("hydrate");
+  if (skinType === "сухая" || problems.includes("сухость") || goal === "hydrate") {
+    list.push("hyaluron-8in1");
   }
 
   // Anti-age
   if (goal === "antiage" || problems.includes("морщины")) {
-    list.push("antiage");
+    list.push("retinal");
   }
 
   // Чувствительная кожа
   if (sensitivity === "чувствительная" || sensitivity === "очень чувствительная") {
-    list.push("hydrate");
+    list.push("hyaluron-8in1");
   }
 
   // Подростковая кожа
   if (age === "12-17") {
-    list.push("multi3", "deepclean");
+    list.push("multi3");
+  }
+
+  if (goal === "balance" || goal === "maintenance") {
+    list.push("resveratrol-c");
+  }
+
+  if (answers.routine === "full" || answers.setSize === "full") {
+    list.push("hydrophilic-oil");
   }
 
   // Минимальный набор
@@ -153,5 +161,6 @@ export function getRecommendations(answers: QuizAnswers): string[] {
   }
 
   // Удаляем дубли
-  return [...new Set(list)];
+  const unique = [...new Set(list)];
+  return unique.length > 0 ? unique : ["hyaluron-8in1"];
 }

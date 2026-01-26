@@ -240,7 +240,7 @@ export default function HydrationArticle() {
                 увлажнение и восстановление барьера кожи. Подходит для сухой, чувствительной и нормальной кожи.
               </p>
               <Link
-                href="/products/hydrate"
+                href="/products/hyaluron-8in1"
                 className="inline-flex items-center gap-2 bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-button font-medium text-base sm:text-lg hover:bg-accent transition-colors border-2 border-primary min-h-[48px]"
               >
                 Смотреть Hydrate+
@@ -253,4 +253,3 @@ export default function HydrationArticle() {
     </article>
   );
 }
-

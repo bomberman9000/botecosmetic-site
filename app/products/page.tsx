@@ -3,12 +3,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
-import { products, Product } from "@/lib/products";
+import { products } from "@/lib/products";
 
 const categories = [
   { value: "all", label: "Все" },
   { value: "Сыворотки", label: "Сыворотки" },
-  { value: "Кремы", label: "Кремы" },
   { value: "Очищение", label: "Очищение" },
   { value: "Мужской уход", label: "Для бороды" },
 ];

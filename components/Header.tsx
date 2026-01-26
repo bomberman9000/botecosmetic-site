@@ -1,92 +1,156 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Menu, X, ShoppingCart } from "lucide-react";
+
+interface NavItem {
+  href: string;
+  label: string;
+  dropdown?: Array<{ href: string; label: string }>;
+}
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [isScrollingUp, setIsScrollingUp] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const pathname = usePathname();
 
-  const navItems = [
-    { href: "/", label: "Главная" },
-    { href: "/skin-test", label: "Подбор" },
-    { href: "/products", label: "Каталог" },
-    { href: "/blog", label: "Блог" },
-    { href: "/contacts", label: "Контакты" },
+  useEffect(() => {
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const scrollDifference = lastScrollY - currentScrollY;
+          
+          // Скролл вверх: разница > 5px и мы не в самом верху
+          const scrollingUp = scrollDifference > 5 && currentScrollY > 30;
+          
+          setScrollY(currentScrollY);
+          setIsScrolled(currentScrollY > 20);
+          setIsScrollingUp(scrollingUp);
+          setLastScrollY(currentScrollY);
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Проверяем начальное состояние
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+  
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    if (href === "/products") {
+      return pathname === "/products" || pathname?.startsWith("/products/");
+    }
+    return pathname === href || pathname?.startsWith(href + "/");
+  };
+
+  const navItems: NavItem[] = [
+    { href: "/", label: "ГЛАВНАЯ" },
+    { href: "/about", label: "ИСТОРИЯ БРЕНДА" },
+    { href: "/skin-test", label: "ПЕРСОНАЛЬНЫЙ УХОД" },
+    { href: "/products", label: "ГОТОВЫЙ УХОД" },
+    { href: "/loyalty", label: "ПРОГРАММА ЛОЯЛЬНОСТИ" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-bg border-b border-line">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center">
-            <span className="font-display text-2xl font-bold text-primary">
-              BOTE
-            </span>
-            <span className="ml-2 text-accent">cosmetic</span>
-          </Link>
+    <header 
+      className={`site-header sticky top-0 z-[1000] transition-all duration-300 ${
+        isScrolled ? "is-scrolled" : ""
+      } ${
+        isScrollingUp ? "is-scrolling-up" : ""
+      }`}
+    >
+      <div className="container mx-auto px-6 sm:px-8 lg:px-10">
+        <div className="flex items-center h-20 lg:h-24">
+          {/* Logo & Brand Tagline */}
+          <div className="logo-wrapper flex-shrink-0">
+            <Link href="/" className="flex items-center header-logo-link brand">
+              <img 
+                src="/images/via-labote-logo.svg" 
+                alt="VIA LABOTE" 
+                className="brand-logo"
+              />
+              <div className="brand-tagline">
+                <div className="brand-title">КОНЦЕПТОР УХОДА</div>
+                <div className="brand-subtitle">день и ночь, чтобы раскрыть красоту и долговечность любой кожи</div>
+              </div>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation - с отступом от логотипа */}
+          <nav 
+            className={`hidden lg:flex items-center nav-wrapper flex-1 transition-opacity duration-500 ${
+              isScrolled ? "opacity-100" : "opacity-100"
+            }`}
+          >
+            {navItems.map((item, index) => (
+              <motion.div
+                key={item.href}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.4 }}
+                className="nav-item relative"
+              >
+                <Link
+                  href={item.href}
+                  className={`nav-link nav-link-luxury text-sm lg:text-base font-medium uppercase ${
+                    isActive(item.href) ? "active" : ""
+                  }`}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+                {item.dropdown && (
+                  <div className="nav-dropdown">
+                    {item.dropdown.map((subItem) => (
+                      <Link
+                        key={subItem.href}
+                        href={subItem.href}
+                        className="nav-dropdown-link"
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </nav>
+
+        </div>
+
+        {/* Mobile/Tablet Navigation - inline labels */}
+        <nav className="mobile-nav-inline lg:hidden" aria-label="Основная навигация">
+          <div className="mobile-nav-row">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-primary hover:text-accent transition-colors font-medium"
+                className={`nav-link nav-link-luxury ${
+                  isActive(item.href) ? "active" : ""
+                }`}
+                aria-current={isActive(item.href) ? "page" : undefined}
               >
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/cart"
-              className="flex items-center gap-2 text-primary hover:text-accent transition-colors"
-            >
-              <ShoppingCart className="w-5 h-5" />
-            </Link>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-primary"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden pb-4"
-          >
-            <div className="flex flex-col gap-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-primary hover:text-accent transition-colors font-medium"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <Link
-                href="/cart"
-                className="flex items-center gap-2 text-primary hover:text-accent transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <ShoppingCart className="w-5 h-5" />
-                Корзина
-              </Link>
-            </div>
-          </motion.nav>
-        )}
+          </div>
+        </nav>
       </div>
     </header>
   );
 }
-

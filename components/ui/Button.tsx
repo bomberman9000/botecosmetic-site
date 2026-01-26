@@ -15,6 +15,8 @@ export default function Button({
   variant = "primary",
   size = "md",
   className,
+  onAnimationStart,
+  onDragStart,
   ...props
 }: ButtonProps) {
   const baseStyles = "font-medium transition-all duration-300 border-2";
@@ -31,10 +33,15 @@ export default function Button({
     lg: "px-8 py-4 text-lg",
   };
 
+  const motionProps = {
+    whileHover: { scale: 1.02 },
+    whileTap: { scale: 0.98 },
+  };
+
   return (
     <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      type="button"
+      {...motionProps}
       className={cn(
         baseStyles,
         variants[variant],
@@ -42,7 +49,7 @@ export default function Button({
         "rounded-button",
         className
       )}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </motion.button>

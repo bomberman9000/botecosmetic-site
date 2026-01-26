@@ -2,11 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
   --font-inter: 'Inter', sans-serif;
-  --font-playfair: 'Playfair Display', serif;
 }
 
 * {
@@ -17,11 +16,57 @@
 
 body {
   font-family: var(--font-inter);
-  color: #000000;
-  background: #FFFFFF;
+  color: #1a1a1a; /* мягкий черный вместо чистого #000 для luxury-вида */
+  background: #fefefe; /* тёплый белый вместо чистого #fff */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  letter-spacing: -0.01em; /* улучшенная читаемость для luxury-брендов */
+  
+  /* Плавные переходы как кинематограф - easing как в Apple Keynote */
+  scroll-behavior: smooth;
+}
+
+/* Плавные переходы для секций - перетекание, а не прыжки */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Секции перетекают плавно */
+section {
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Крутящаяся звёздочка для программы лояльности */
+@keyframes starSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.star-spin {
+  animation: starSpin 3s linear infinite;
+  fill: currentColor;
+}
+
+/* Кнопка меню - тонкий контур, как ювелирное изделие */
+.menu-icon-thin {
+  color: rgba(20, 20, 20, 0.7);
+  transition: color 0.3s ease;
+}
+
+.menu-icon-thin:hover {
+  color: rgba(20, 20, 20, 0.9);
+}
+
+/* Иконки меню - тонкий контур (stroke вместо fill) */
+.menu-icon-thin svg {
+  stroke: currentColor;
+  fill: none;
 }
 
 /* Mobile optimizations */
@@ -37,9 +82,2501 @@ body {
   }
 }
 
+/* Premium Header Styles */
+.logo-wrapper {
+  flex-shrink: 0;
+}
+
+.header-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.header-logo-link:hover {
+  transform: translateY(-1px);
+}
+
+/* Brand Tagline Styles */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.brand-tagline {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1f2a44; /* фирменный тёмно-синий */
+  font-weight: 500;
+}
+
+.brand-subtitle {
+  font-size: 10px; /* Уменьшено с 11px */
+  color: rgba(0, 0, 0, 0.55);
+  max-width: 240px; /* Уменьшено с 280px */
+}
+
+/* На больших экранах скрываем subtitle чтобы освободить место для меню */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .brand-subtitle {
+    display: none; /* Скрываем на средних экранах */
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-subtitle {
+    display: none;
+  }
+  
+  .brand {
+    gap: 12px;
+  }
+  
+  .brand-title {
+    font-size: 11px;
+  }
+}
+
+/* Luxury Logo Animation */
+@keyframes luxeLogoIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+    filter: blur(1.5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Единые стили для логотипа бренда */
+.brand-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: opacity 300ms ease, transform 300ms ease;
+  animation: luxeLogoIn 520ms ease-out 120ms both;
+}
+
+/* Уважение к пользователям с ограниченными возможностями */
+@media (prefers-reduced-motion: reduce) {
+  .brand-logo {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-logo {
+    height: 32px;
+  }
+}
+
+/* Footer Logo Styles - Premium Luxury */
+.footer-logo-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 200ms ease, opacity 200ms ease;
+  margin-bottom: 12px;
+}
+
+.footer-logo-link:hover {
+  transform: translateY(-1px);
+}
+
+/* Luxury Footer Logo Animation */
+@keyframes luxeFooterLogo {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px) brightness(0) invert(1);
+  }
+  to {
+    transform: translateY(0);
+    filter: blur(0) brightness(0) invert(1) drop-shadow(0 2px 8px rgba(255, 255, 255, 0.12));
+  }
+}
+
+/* Специфичные стили для логотипа в футере */
+.footer .brand-logo {
+  height: 34px;
+}
+
+/* Режим для чёрного футера - белый логотип с glow */
+.on-dark .brand-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
+  animation: luxeFooterLogo 700ms cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.footer-logo-link:hover .on-dark .brand-logo {
+  filter: brightness(0) invert(1) drop-shadow(0 3px 12px rgba(255, 255, 255, 0.2));
+}
+
+/* Уважение к пользователям с ограниченными возможностями */
+@media (prefers-reduced-motion: reduce) {
+  .on-dark .brand-logo {
+    animation: none;
+    filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
+  }
+}
+
+@media (max-width: 768px) {
+  .footer .brand-logo,
+  .on-dark .brand-logo {
+    height: 32px;
+  }
+}
+
+/* Premium Footer Background - Subtle Status Glow */
+.footer-premium {
+  position: relative;
+}
+
+.footer-premium.bg-primary {
+  background: radial-gradient(
+    ellipse at left top,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 60%
+  ),
+  #000000 !important;
+}
+
+.nav-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px; /* Еще больше уменьшено для большего пространства */
+  flex-wrap: nowrap; /* Запрещаем перенос пунктов меню */
+  min-width: 0; /* Позволяет flex-элементам сжиматься */
+}
+
+@media (min-width: 1280px) {
+  .nav-wrapper {
+    margin-left: 32px; /* Уменьшено с clamp(48px, 4vw, 64px) */
+  }
+}
+
+/* Luxury menu hover effects */
+.nav-link-luxury {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px; /* Уменьшено padding */
+  text-decoration: none;
+  color: rgba(20, 20, 20, 0.82);
+  transition: color 200ms ease, transform 200ms ease, letter-spacing 200ms ease;
+  will-change: transform;
+  white-space: nowrap; /* Запрещаем перенос текста */
+  flex-shrink: 0; /* Не сжимаемся */
+  
+  /* Micro-kerning для luxury брендов - очень тонко, без колхоза */
+  letter-spacing: 0.04em; /* Еще больше уменьшено */
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75rem; /* Еще больше уменьшено с 0.8rem */
+  
+  /* Фиксированная высота для стабильности - линия не дергает верстку */
+  min-height: 44px;
+}
+
+/* Тонкая линия снизу (появляется плавно) - НЕ влияет на высоту (absolute) */
+.nav-link-luxury::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0.35);
+  transform-origin: left;
+  transition: opacity 200ms ease, transform 260ms ease;
+  /* Убеждаемся, что линия не влияет на layout */
+  pointer-events: none;
+}
+
+/* Hover: чуть темнее, легкий "lift", линия проявляется */
+.nav-link-luxury:hover {
+  color: rgba(20, 20, 20, 0.95);
+  transform: translateY(-1px);
+  letter-spacing: 0.09em; /* Микро-увеличение tracking при hover */
+}
+
+.nav-link-luxury:hover::after {
+  transform: scaleX(1);
+}
+
+/* Focus для клавиатуры (accessibility) */
+.nav-link-luxury:focus-visible {
+  outline: none;
+  color: rgba(20, 20, 20, 0.95);
+}
+
+.nav-link-luxury:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Активный пункт (если есть класс active/current) - БЕЗ серой плашки */
+.nav-link-luxury[aria-current="page"],
+.nav-link-luxury.active {
+  color: rgba(20, 20, 20, 0.95);
+  /* Убираем все фоны и плашки */
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.nav-link-luxury[aria-current="page"]::after,
+.nav-link-luxury.active::after {
+  /* Тонкая luxury underline вместо плашки */
+  opacity: 1;
+  transform: scaleX(1);
+  background: rgba(190, 160, 95, 0.55); /* Золотистый цвет для luxury */
+  height: 1px;
+}
+
+/* Дополнительные стили для навигации */
+header nav {
+  gap: 12px !important; /* Еще больше уменьшено чтобы все пункты поместились */
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+}
+
+@media (min-width: 1280px) {
+  header nav {
+    gap: 16px !important; /* Уменьшено */
+  }
+}
+
+@media (min-width: 1536px) {
+  header nav {
+    gap: 20px !important; /* Уменьшено */
+  }
+}
+
+/* Glass Header - Fashion Campaign Style (Dior/Chanel) */
+.site-header,
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  /* Air glass - тонкий, без "мутной шторки" */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 248, 235, 0.14) 0%,
+    rgba(255, 248, 235, 0.28) 45%,
+    rgba(255, 248, 235, 0.10) 70%,
+    rgba(255, 248, 235, 0.00) 100%
+  );
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+
+  /* Убираем жёсткие края - без border */
+  border-bottom: none;
+  
+  /* Минимальная тень - fashion style */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+
+  transition:
+    background 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    backdrop-filter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Убираем overflow: hidden чтобы dropdown не обрезался */
+.site-header,
+header.site-header {
+  overflow: visible !important;
+}
+
+.site-header > div,
+header.site-header > div {
+  position: relative;
+  overflow: visible !important;
+}
+
+.site-header nav,
+header.site-header nav,
+.nav-wrapper {
+  overflow: visible !important;
+}
+
+/* Усиление эффекта при скролле - остаётся тонким air glass */
+.site-header.is-scrolled,
+header.site-header.is-scrolled {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 248, 235, 0.70) 0%,
+    rgba(255, 248, 235, 0.38) 45%,
+    rgba(255, 248, 235, 0.14) 70%,
+    rgba(255, 248, 235, 0.00) 100%
+  );
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  border-bottom: none;
+}
+
+/* Кнопка Wildberries - плотная, без blur, как physical object */
+.wildberries-btn {
+  background-color: var(--accent-color, #C9A961) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 10;
+}
+
+.wildberries-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(201, 169, 97, 0.3) !important;
+}
+
+/* Мобильная адаптация - фон чуть плотнее для читаемости */
+@media (max-width: 768px) {
+  .site-header,
+  header.site-header {
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.18) 55%,
+      rgba(255, 255, 255, 0.10) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 6px 20px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+  
+  .site-header.is-scrolled,
+  header.site-header.is-scrolled {
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.38) 0%,
+      rgba(255, 255, 255, 0.24) 55%,
+      rgba(255, 255, 255, 0.12) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 8px 26px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Жидкое стекло при скролле вверх (как у Apple) */
+  .site-header.is-scrolling-up,
+  header.site-header.is-scrolling-up {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.14) 55%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+      0 6px 22px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition: 
+      background 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      -webkit-backdrop-filter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      backdrop-filter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  /* Плавное появление контента при скролле вверх */
+  .site-header.is-scrolling-up .logo-wrapper,
+  .site-header.is-scrolling-up .nav-wrapper {
+    transition: opacity 300ms ease-out;
+  }
+}
+
+/* Mobile Navigation - Glass dropdown эффект */
+/* Mobile Menu - Ювелирное стекло (как флакон духов) */
+.mobile-nav-glass {
+  background: 
+    /* Градиент по краям - светлее сверху */
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.18) 50%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.4); /* светлее сверху */
+  /* Тонкая золотая линия внизу */
+  border-bottom: 1px solid rgba(212, 175, 55, 0.4); /* золотая */
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 0 -1px 0 rgba(212, 175, 55, 0.2); /* золотой отблеск снизу */
+  border-radius: 18px;
+  margin-top: 1rem;
+  padding: 1.5rem;
+  
+  /* Анимация появления */
+  animation: glassIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Mobile/Tablet Navigation - inline labels */
+.mobile-nav-inline {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.18) 55%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.mobile-nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 14px;
+}
+
+.mobile-nav-inline .nav-link-luxury {
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  padding: 6px 2px;
+  min-height: 34px;
+}
+
+.mobile-nav-inline .nav-link-luxury::after {
+  bottom: 2px;
+}
+
+@media (max-width: 420px) {
+  .mobile-nav-inline {
+    padding: 8px 10px;
+  }
+
+  .mobile-nav-inline .nav-link-luxury {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* Текст в мобильном меню */
+.mobile-nav-glass a {
+  color: rgba(20, 20, 20, 0.9);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+/* Активный пункт в мобильном меню - БЕЗ серой плашки */
+.mobile-nav-glass .nav-link-mobile-active,
+.mobile-nav-glass a[aria-current="page"] {
+  /* Убираем все фоны и плашки */
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  
+  /* Тонкая luxury underline */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+  text-decoration-color: rgba(190, 160, 95, 0.55);
+}
+
+/* Анимация glass morphism */
+@keyframes glassIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Desktop Navigation - Glass Dropdown */
+.nav-item {
+  position: relative;
+}
+
+/* Hidden by default */
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 260px;
+  padding: 10px;
+  border-radius: 16px;
+
+  background: rgba(255, 248, 235, 0.72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10);
+
+  opacity: 0;
+  transform: translateY(-6px) scale(0.985);
+  pointer-events: none;
+
+  transition: opacity 180ms ease, transform 220ms ease;
+  z-index: 2000;
+}
+
+/* Show on hover */
+.nav-item:hover .nav-dropdown {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Show on keyboard focus (a11y) */
+.nav-item:focus-within .nav-dropdown {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Dropdown links */
+.nav-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  color: rgba(20, 20, 20, 0.86);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  transition: background 180ms ease, transform 180ms ease, color 180ms ease;
+}
+
+.nav-dropdown a:hover,
+.nav-dropdown a:focus-visible {
+  background: rgba(255, 255, 255, 0.55);
+  color: rgba(20, 20, 20, 0.95);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* Hero Section - Scroll Fade Effect */
+.hero {
+  --scroll: 0;
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  will-change: opacity, transform, filter;
+
+  opacity: calc(1 - (var(--scroll) * 0.55));
+  transform: translateY(calc(var(--scroll) * -12px));
+  filter: blur(calc(var(--scroll) * 2px));
+  transition: opacity 80ms linear, transform 80ms linear, filter 80ms linear;
+}
+
+/* Film grain как у кино (не цифровой шум, а плёночный) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 1;
+  pointer-events: none;
+
+  opacity: 0.03; /* очень тонко, как плёнка */
+  mix-blend-mode: overlay;
+
+  /* Плёночный grain - более органичный, чем цифровой */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='filmGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0.8'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23filmGrain)' opacity='0.4'/%3E%3C/svg%3E");
+  transform: translateZ(0);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 1023px) {
+  .logo-wrapper {
+    margin-right: auto;
+  }
+  
+  .nav-wrapper {
+    display: none;
+  }
+}
+
+/* Убеждаемся, что линия не дергает верстку - уже определено выше */
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .nav-link-luxury,
+  .nav-link-luxury::after,
+  header {
+    transition: none !important;
+  }
+  
+  .nav-link-luxury:hover {
+    transform: none;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
+/* Promo Cards Section */
+.section-promos {
+  margin-top: 64px; /* больше воздуха для luxury-вида */
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .section-promos {
+    margin-top: 48px; /* больше воздуха на мобилке */
+  }
+}
+
+.promo-card {
+  position: relative;
+  display: block;
+  border-radius: 24px; /* более мягкие углы */
+  overflow: hidden;
+  min-height: 320px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.08); /* более мягкая тень */
+  transform: translateZ(0);
+  transition: transform .5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .5s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+}
+
+.promo-media,
+.promo-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.promo-media img {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 1.1s ease, filter 1.1s ease;
+}
+
+.promo-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.promo-content {
+  position: absolute;
+  left: 30px;
+  bottom: 26px;
+  z-index: 10 !important; /* Увеличиваем z-index чтобы текст был поверх всех элементов */
+  color: #fff;
+  max-width: 70%;
+}
+
+.promo-kicker {
+  display: block;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .85;
+  margin-bottom: 10px;
+}
+
+.promo-title {
+  font-family: var(--font-inter);
+  font-size: clamp(30px, 2.2vw, 44px);
+  line-height: 1.04;
+  margin: 0 0 12px;
+  text-shadow: 0 14px 38px rgba(0,0,0,.30);
+}
+
+.promo-link {
+  display: inline-block;
+  font-size: 15px;
+  opacity: .9;
+  text-shadow: 0 14px 38px rgba(0,0,0,.30);
+}
+
+/* LEFT overlay */
+.promo-card:first-child .promo-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,.30) 0%,
+    rgba(0,0,0,.12) 45%,
+    rgba(0,0,0,0) 70%
+  );
+}
+
+/* RIGHT overlay (без полосы) */
+.promo-card:last-child .promo-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,.22) 0%,
+    rgba(0,0,0,.10) 42%,
+    rgba(0,0,0,0) 68%
+  );
+}
+
+/* Все карточки: лицо по центру, чуть вверх (без обрезки лица) */
+.promo-card .promo-media img {
+  object-position: 50% 25%; /* центр + чуть вверх, лицо целое */
+}
+
+/* RIGHT crop — корректный кроп (без обрезки лица) */
+.promo-card:last-child .promo-media img {
+  object-position: 50% 25%; /* центр + чуть вверх, лицо целое */
+}
+
+.promo-card:last-child .promo-content {
+  max-width: 60%;
+}
+
+/* Premium hover */
+@media (hover:hover) and (pointer:fine) {
+  .promo-card:hover {
+    transform: translateY(-4px); /* более тонкое движение */
+    box-shadow: 0 16px 50px rgba(0,0,0,.10); /* более мягкая тень */
+  }
+  .promo-card:hover .promo-media img {
+    transform: scale(1.02); /* более тонкое увеличение */
+    filter: saturate(1.02) contrast(1.01);
+  }
+  .promo-card:hover .promo-overlay {
+    opacity: .88;
+    transition: opacity .5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .promo-card {
+    min-height: 280px;
+  }
+
+  .promo-content {
+    left: 22px;
+    bottom: 20px;
+    max-width: 86%;
+  }
+
+  /* Все карточки на мобильных: лицо по центру, чуть вверх */
+  .promo-card .promo-media img,
+  .promo-card:last-child .promo-media img {
+    object-position: 50% 20% !important; /* центр + чуть выше для мобильных */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-card,
+  .promo-media img,
+  .promo-overlay {
+    transition: none !important;
+  }
+}
+
+.hero-image-desktop {
+  object-fit: cover;
+}
+
+/* Hero Picture & Image Styles */
+.hero-media,
+.hero-img {
+  width: 100%;
+  display: block;
+}
+
+.hero-img {
+  height: clamp(460px, 52vw, 680px);
+  object-fit: cover;
+  object-position: 50% 25%; /* лицо целиком, глаза в верхней трети */
+  filter: brightness(1.18) contrast(1.04);
+  /* Эффект "дышащей кожи" - едва заметный zoom */
+  animation: breathingSkin 8s ease-in-out infinite;
+}
+
+/* Parallax wrapper */
+.hero-parallax {
+  position: relative;
+  z-index: 0;
+  will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Лёгкий оверлей для читабельности */
+/* Cinematic градиент снизу + мягкий vignette */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Vignette - затемнение краёв */
+    radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 40%,
+      rgba(0,0,0,0.06) 70%,
+      rgba(0,0,0,0.18) 100%
+    ),
+    /* Cinematic градиент снизу */
+    linear-gradient(
+      to top,
+      rgba(0,0,0,0.18) 0%,
+      rgba(0,0,0,0.08) 30%,
+      rgba(0,0,0,0.04) 50%,
+      transparent 80%
+    );
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: normal;
+}
+
+/* Fashion/Luxury Hero Overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* внизу */
+  align-items: flex-start; /* слева */
+
+  padding: 44px 52px;
+  max-width: 100%;
+  
+  /* Fade-in анимация */
+  animation: fashionFadeIn 1.2s ease-out both;
+}
+
+/* Fashion заголовок: "Персональная формула вашей кожи" - ниже уровня глаз */
+.hero-h1-fashion {
+  margin: 0 0 24px; /* ниже уровня глаз модели */
+  font-family: var(--font-inter);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 300; /* тонкий шрифт high-fashion */
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.12em; /* увеличенный межбуквенный интервал */
+  text-shadow: 0 6px 24px rgba(0,0,0,0.45);
+  max-width: 60%; /* не режет лицо, оставляет пространство для взгляда */
+  text-transform: none;
+}
+
+/* Fashion логотип: как подпись фотографа - справа внизу */
+.hero-logo-fashion {
+  position: absolute;
+  right: 52px;
+  bottom: 44px;
+  height: 40px; /* уменьшенный, как подпись */
+  width: auto;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+  z-index: 3;
+}
+
+/* Скрыть старые элементы */
+.hero-h1,
+.hero-quote,
+.hero-logo,
+.hero-h1-mobile,
+.hero-quote-mobile,
+.hero-cta-mobile,
+.hero-h1-desktop,
+.hero-quote-desktop {
+  display: none;
+}
+
+/* Fashion/Luxury fade-in анимация */
+@keyframes fashionFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Premium микро-анимация (для других элементов) */
+@keyframes luxeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px); /* более тонкое движение для luxury */
+    filter: blur(1.5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Mobile luxury анимация: fade-in + translateY(10px), 700ms */
+@keyframes luxeInMobile {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Light sweep animation - обновлено для subtle эффекта */
+@keyframes lightSweep {
+  0%   { transform: translateX(-120%) skewX(-15deg); opacity: 0; }
+  10%  { opacity: 0.12; }
+  40%  { opacity: 0.08; }
+  60%  { opacity: 0.0; }
+  100% { transform: translateX(140%) skewX(-15deg); opacity: 0; }
+}
+
+/* Лёгкий луч света */
+.hero .light-sweep {
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 60%;
+  height: 140%;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.00),
+    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.00)
+  );
+
+  filter: blur(6px);
+  opacity: 0;
+  transform: translateX(-120%) skewX(-15deg);
+  /* Микродвижение света по лицу - раз в 8-10 секунд */
+  animation: subtleLightSweep 9s ease-in-out infinite;
+}
+
+/* Анимация "дышащей кожи" - едва заметный zoom 1.02 → 1.00 */
+@keyframes breathingSkin {
+  0%, 100% {
+    transform: scale(1.00);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Subtle light sweep - микродвижение света по лицу */
+@keyframes subtleLightSweep {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-15deg);
+  }
+  5% {
+    opacity: 0.08; /* очень тонко */
+  }
+  50% {
+    transform: translateX(20%) skewX(-15deg);
+  }
+  95% {
+  }
+}
+
+/* Анимации для fashion элементов */
+.hero-h1-fashion {
+  animation: fashionFadeIn 1.2s ease-out 0.3s both;
+}
+
+.hero-logo-fashion {
+  animation: fashionFadeIn 1.2s ease-out 0.5s both;
+}
+
+/* Уважение к пользователям */
+@media (prefers-reduced-motion: reduce) {
+  .hero-overlay,
+  .hero-logo,
+  .hero-quote,
+  .hero-h1,
+  .hero-cta-mobile,
+  .hero-h1-fashion,
+  .hero-logo-fashion {
+    animation: none;
+  }
+
+  .hero .light-sweep {
+    animation: none;
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 90vh; /* luxury full-screen */
+    height: 90vh;
+  }
+
+  .hero-img {
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 25%; /* лицо целиком, глаза в верхней трети */
+  }
+
+  .hero-parallax {
+    transform: none !important;
+    height: 100%;
+  }
+
+  /* Film grain эффект */
+  .hero::before {
+    opacity: 0.04; /* 0.03-0.05 для luxury */
+  }
+
+  /* Cinematic градиент + Vignette для мобилки */
+  .hero::after {
+    background: 
+      radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        transparent 40%,
+        rgba(0,0,0,0.06) 70%,
+        rgba(0,0,0,0.18) 100%
+      ),
+      linear-gradient(
+        to top,
+        rgba(0,0,0,0.18) 0%,
+        rgba(0,0,0,0.08) 30%,
+        rgba(0,0,0,0.04) 50%,
+        transparent 80%
+      );
+    mix-blend-mode: normal;
+  }
+
+  /* Fashion композиция: внизу слева, безопасная зона */
+  .hero-overlay {
+    align-items: flex-start; /* слева */
+    justify-content: flex-end; /* внизу, не на лбу! */
+    padding: 24px; /* минимум 24px от краёв */
+    max-width: 100%;
+    background: none; /* градиент через ::after */
+  }
+
+  /* Fashion заголовок для мобилки - скрыт, только логотип */
+  .hero-h1-fashion {
+    display: none; /* убрать текст на мобилке, только лого */
+  }
+
+  /* Fashion логотип для мобилки - как подпись фотографа */
+  .hero-logo-fashion {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    height: 36px; /* немного меньше на мобилке */
+    opacity: 0.75; /* тихо, уверенно */
+  }
+
+  /* Light sweep анимация для мобилки (1 раз при загрузке, 6-8 секунд) */
+  .hero .light-sweep {
+    display: block;
+    animation: lightSweepMobile 7s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  }
+}
+
+/* Light sweep анимация для мобилки */
+@keyframes lightSweepMobile {
+  0% {
+    transform: translateX(-100%) translateY(0) rotate(15deg);
+    opacity: 0;
+  }
+  15% {
+  }
+  50% {
+  }
+  85% {
+  }
+  100% {
+    transform: translateX(150%) translateY(0) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+/* Personal Care Hero - Fashion Campaign Style */
+.personal-hero {
+  position: relative;
+  width: 100vw; /* На всю ширину экрана */
+  margin-left: calc(-50vw + 50%); /* Центрируем относительно контейнера */
+  margin-right: calc(-50vw + 50%);
+  margin-bottom: 0; /* Убираем отступ снизу */
+  overflow: hidden;
+  border-radius: 0; /* Без скруглений - как обложка журнала */
+  min-height: 85vh; /* Почти на весь экран */
+  max-height: 100vh;
+}
+
+.personal-hero-media,
+.personal-hero-img {
+  width: 100%;
+  display: block;
+}
+
+.personal-hero-img {
+  width: 100%;
+  height: 100%;
+  min-height: 85vh;
+  object-fit: cover;
+  object-position: 50% 20% !important; /* Глаза в фокусе */
+  display: block;
+  
+  /* Анимация fade-in + zoom-out */
+  animation: fashionHeroIn 8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center center;
+}
+
+@keyframes fashionHeroIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.00);
+  }
+}
+
+/* Subtle light sweep для personal hero - раз в 10-12 секунд */
+.personal-light-sweep {
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 60%;
+  height: 140%;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.00),
+    rgba(255,255,255,0.15),
+    rgba(255,255,255,0.00)
+  );
+
+  filter: blur(8px);
+  opacity: 0;
+  transform: translateX(-120%) skewX(-15deg);
+  
+  /* Микродвижение света - раз в 10-12 секунд */
+  animation: personalLightSweep 11s ease-in-out infinite;
+}
+
+@keyframes personalLightSweep {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-15deg);
+  }
+  5% {
+    opacity: 0.06; /* Очень тонко */
+  }
+  50% {
+    transform: translateX(20%) skewX(-15deg);
+  }
+  95% {
+  }
+}
+
+/* Fashion overlay - только мягкий градиент сверху, без серых плашек */
+.personal-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0;
+  padding: 0;
+  
+  /* Только мягкий градиент сверху (black 0% → transparent 40%) */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.15) 20%,
+    rgba(0, 0, 0, 0.05) 35%,
+    transparent 40%
+  );
+  
+  pointer-events: none;
+  z-index: 2;
+  animation: fashionFadeIn 1.2s ease-out 0.5s both;
+}
+
+.personal-hero-copy {
+  max-width: 60%;
+}
+
+@media (min-width: 769px) {
+  .personal-hero-overlay {
+    padding: 32px 28px 40px;
+    gap: 16px;
+  }
+}
+
+.personal-hero-logo {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  height: 32px; /* Маленький логотип */
+  width: auto;
+  filter: none; /* Без теней */
+  opacity: 0.75; /* Тихий, уверенный */
+  z-index: 3;
+  transform: translate(-24px, -24px); /* Смещение от края */
+  animation: fashionFadeIn 1.2s ease-out 0.8s both;
+}
+
+@media (min-width: 769px) {
+  .personal-hero-logo {
+    height: 36px; /* Немного больше на десктопе, но всё ещё маленький */
+    right: 32px;
+    bottom: 32px;
+    transform: translate(-32px, -32px);
+  }
+}
+
+/* Заголовок hero - "Персональная формула вашей кожи" */
+.personal-hero-title {
+  position: absolute;
+  left: 48px;
+  top: 55%; /* Позиция ~55-60% от верха (ниже уровня глаз) */
+  margin: 0;
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.2;
+  color: rgba(255, 255, 245, 0.9);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 50%;
+  letter-spacing: 0.10em;
+  font-weight: 300;
+  z-index: 3;
+  font-family: var(--font-inter);
+  animation: fashionFadeIn 1.2s ease-out 0.4s both;
+}
+
+.personal-hero-text {
+  position: absolute;
+  left: 48px;
+  bottom: 120px; /* Смещён ниже уровня глаз модели */
+  margin: 0;
+  margin-top: 24px; /* Отступ от заголовка */
+  font-size: clamp(16px, 2vw, 24px);
+  line-height: 1.4;
+  color: rgba(255, 255, 245, 0.85); /* Чуть прозрачнее чем заголовок */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 50%;
+  letter-spacing: 0.08em;
+  font-weight: 300; /* Тонкий шрифт */
+  z-index: 3;
+  font-family: var(--font-inter); /* Sans-serif для подзаголовка */
+  animation: fashionFadeIn 1.2s ease-out 0.6s both;
+}
+
+@media (min-width: 769px) {
+  .personal-hero-title {
+    left: 64px;
+    top: 58%;
+    font-size: clamp(32px, 4vw, 56px);
+    max-width: 45%;
+  }
+  
+  .personal-hero-text {
+    left: 64px;
+    bottom: 140px;
+    font-size: clamp(18px, 2.2vw, 28px);
+    max-width: 45%;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (max-width: 1024px) {
+  .personal-hero-overlay {
+    padding: 16px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .personal-hero-copy {
+    position: relative;
+    max-width: min(88%, 420px);
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.14) 55%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  .personal-hero-title {
+    position: static;
+    max-width: 100%;
+    margin: 0 0 8px;
+    font-size: clamp(20px, 5.4vw, 30px);
+    letter-spacing: 0.06em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  }
+  
+  .personal-hero-text {
+    position: static;
+    max-width: 100%;
+    margin: 0;
+    font-size: clamp(13px, 3.6vw, 18px);
+    letter-spacing: 0.04em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.16);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .personal-hero-copy {
+    max-width: min(70%, 560px);
+    padding: 16px 18px;
+    border-radius: 18px;
+  }
+
+  .personal-hero-title {
+    font-size: clamp(24px, 3.2vw, 34px);
+  }
+
+  .personal-hero-text {
+    font-size: clamp(14px, 2.2vw, 20px);
+  }
+}
+
+/* Мобильная версия - тоже на всю ширину */
+@media (max-width: 768px) {
+  .personal-hero-img {
+    min-height: 85vh;
+    object-position: 50% 20% !important; /* Глаза в фокусе */
+  }
+  
+  .personal-hero {
+    min-height: 85vh;
+    border-radius: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .personal-hero-overlay,
+  .personal-hero-img,
+  .personal-hero-logo,
+  .personal-hero-title,
+  .personal-hero-text,
+  .personal-light-sweep {
+    animation: none;
+  }
+  
+  .personal-hero-img {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .personal-light-sweep {
+    display: none;
+  }
+}
+
+/* Page Container */
+.page-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 769px) {
+  .page-container {
+    padding: 0 40px;
+  }
+}
+
+.skin-test-container {
+  width: min(720px, 92%);
+  margin: 0 auto;
+}
+
+/* PC Benefits */
+.pc-benefits {
+  width: min(1120px, 92%);
+  margin: 32px auto 40px; /* больше воздуха (8pt система: 32px = 4*8pt, 40px = 5*8pt) */
+}
+
+.pc-benefits-title {
+  margin: 0 0 24px; /* больше воздуха (8pt система: 24px = 3*8pt) */
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: -0.01em; /* более воздушный для luxury */
+  line-height: 1.2; /* более воздушный */
+  font-weight: 600;
+  color: var(--color-primary, #1a1a1a);
+  text-align: center;
+}
+
+.pc-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.pc-benefit {
+  border-radius: 18px; /* более мягкие углы для luxury */
+  padding: 18px 16px; /* больше воздуха */
+  background: rgba(255,255,255,0.85); /* более плотный фон */
+  border: 1px solid rgba(0,0,0,0.04); /* более тонкая граница */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04); /* более мягкая тень */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.4; /* улучшенная читаемость */
+  color: var(--color-primary, #1a1a1a);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.pc-benefit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+.pc-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.06);
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: var(--color-accent, #4a9e5a);
+}
+
+@media (max-width: 1024px) {
+  .pc-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .pc-benefits {
+    margin: 16px auto 20px;
+  }
+  .pc-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* PC Steps */
+.pc-steps {
+  width: min(1120px, 92%);
+  margin: 26px auto 26px;
+}
+
+.pc-steps-title {
+  margin: 0 0 18px;
+  font-size: clamp(22px, 2.6vw, 34px);
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--color-primary, #1a1a1a);
+  text-align: center;
+}
+
+.pc-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.pc-step {
+  padding: 24px 20px 20px; /* больше воздуха (8pt система) */
+  border-radius: 20px; /* более мягкие углы */
+  background: rgba(255,255,255,0.80); /* более плотный фон */
+  border: 1px solid rgba(0,0,0,0.04); /* более тонкая граница */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04); /* более мягкая тень */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1; /* выше линии */
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  opacity: 0;
+  animation: stepFadeIn 600ms ease-out forwards;
+}
+
+.pc-step:nth-child(1) { animation-delay: 0ms; }
+.pc-step:nth-child(2) { animation-delay: 100ms; }
+.pc-step:nth-child(3) { animation-delay: 200ms; }
+.pc-step:nth-child(4) { animation-delay: 300ms; }
+
+@keyframes stepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pc-step:hover {
+  transform: translateY(-2px); /* более тонкое движение */
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+.pc-step-badge {
+  width: 48px; /* немного больше для luxury */
+  height: 48px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: rgba(255,255,255,0.95);
+  background: linear-gradient(180deg, #d4b574, #c4a254); /* более мягкий золотой градиент */
+  box-shadow: 0 8px 20px rgba(196, 162, 84, 0.25); /* более мягкая тень с золотым оттенком */
+  margin-bottom: 14px;
+  font-size: 20px;
+}
+
+.pc-step-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--color-primary, #1a1a1a);
+}
+
+.pc-step-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-primary, #1a1a1a);
+}
+
+/* адаптация */
+@media (max-width: 1024px) {
+  .pc-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .pc-steps {
+    margin: 32px auto 40px; /* больше воздуха (8pt система) */
+  }
+  .pc-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 16px; /* больше воздуха (8pt система: 16px = 2*8pt) */
+  }
+  .pc-steps-grid::before {
+    display: none; /* скрываем линию на мобилке */
+  }
+  .pc-step {
+    padding: 20px 16px; /* больше воздуха (8pt система) */
+  }
+  .pc-step-badge {
+    width: 48px; /* немного меньше на мобилке */
+    height: 48px;
+    font-size: 20px;
+  }
+}
+
+/* Desktop Hero */
+@media (min-width: 768px) {
+  .hero-image-desktop {
+    object-position: 50% 25% !important; /* центр + чуть вверх, лицо целое */
+  }
+  
+  .hero-overlay {
+    background: linear-gradient(90deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.20) 55%, rgba(0,0,0,0) 100%) !important;
+  }
+  
+  .hero-content {
+    justify-content: center !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+}
+
+/* Mobile Hero */
+@media (max-width: 767px) {
+  section[class*="hero"] {
+    min-height: 100vh !important;
+    height: 100vh;
+  }
+  
+  section[class*="hero"] > div {
+    min-height: 100vh !important;
+    height: 100vh;
+  }
+  
+  .hero-image-desktop {
+    object-position: 50% 25% !important; /* фокус на лицо модели, глаза в верхней трети */
+  }
+  
+  .hero-overlay {
+    background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.65) 100%) !important;
+  }
+  
+  .hero-content {
+    justify-content: flex-end !important;
+    padding-bottom: 24px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .hero-description {
+    font-size: 1.125rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ========================================
+   УЛУЧШЕНИЯ ДЛЯ ИЗОБРАЖЕНИЙ НА САЙТЕ VIA LABOTE
+   ======================================== */
+
+/* === 1. КАРТОЧКИ ПОПУЛЯРНЫХ ПРОДУКТОВ === */
+
+/* Изображения продуктов */
+[href^="/products/"] img {
+  object-fit: cover !important;
+  width: 100%;
+  height: 350px;
+  border-radius: 16px 16px 0 0;
+  transition: transform 0.3s ease;
+}
+
+/* Карточки продуктов */
+[href^="/products/"] {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
+  background: white;
+  display: block;
+}
+
+/* Hover эффект для карточек продуктов */
+[href^="/products/"]:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+[href^="/products/"]:hover img {
+  transform: scale(1.05);
+}
+
+
+/* === 2. ГЛАВНЫЕ КАРТОЧКИ (Индивидуальная История / Готовый Уход) === */
+/* Примечание: Стили для промо-карточек уже определены выше через классы .promo-card, .promo-content и т.д. */
+/* Эти стили применяются только если карточки не используют класс .promo-card */
+
+/* Карточки на главной (только если нет класса .promo-card) */
+.section-promos a[href="/skin-test"]:not(.promo-card),
+.section-promos a[href*="wildberries.ru"]:not(.promo-card) {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  min-height: 450px;
+  display: block;
+}
+
+/* Изображения в главных карточках (только если нет класса .promo-card) */
+.section-promos a[href="/skin-test"]:not(.promo-card) img,
+.section-promos a[href*="wildberries.ru"]:not(.promo-card) img {
+  object-fit: cover !important;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.5s ease;
+}
+
+/* Градиент поверх изображения для читаемости текста (только если нет класса .promo-card) */
+.section-promos a[href="/skin-test"]:not(.promo-card)::after,
+.section-promos a[href*="wildberries.ru"]:not(.promo-card)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* Текст поверх изображения (только если нет класса .promo-content) */
+.section-promos a[href="/skin-test"]:not(.promo-card) > *:not(img):not(.promo-content),
+.section-promos a[href*="wildberries.ru"]:not(.promo-card) > *:not(img):not(.promo-content) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hover эффект для главных карточек (только если нет класса .promo-card) */
+.section-promos a[href="/skin-test"]:not(.promo-card):hover,
+.section-promos a[href*="wildberries.ru"]:not(.promo-card):hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.section-promos a[href="/skin-test"]:not(.promo-card):hover img,
+.section-promos a[href*="wildberries.ru"]:not(.promo-card):hover img {
+  transform: scale(1.1);
+}
+
+.section-promos a[href="/skin-test"]:not(.promo-card):hover::after,
+.section-promos a[href*="wildberries.ru"]:not(.promo-card):hover::after {
+}
+
+
+/* === 3. ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ === */
+
+/* Плавная анимация для всех изображений */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Убираем возможные артефакты при трансформациях */
+[href^="/products/"],
+.section-promos a[href="/skin-test"]:not(.promo-card),
+.section-promos a[href*="wildberries.ru"]:not(.promo-card) {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+
+/* === 4. АДАПТИВНОСТЬ === */
+
+/* Для планшетов */
+@media (max-width: 768px) {
+  [href^="/products/"] img {
+    height: 280px;
+  }
+  
+  .section-promos a[href="/skin-test"]:not(.promo-card),
+  .section-promos a[href*="wildberries.ru"]:not(.promo-card) {
+    min-height: 350px;
+  }
+}
+
+/* Для мобильных устройств */
+@media (max-width: 480px) {
+  [href^="/products/"] img {
+    height: 220px;
+    border-radius: 12px 12px 0 0;
+  }
+  
+  [href^="/products/"] {
+    border-radius: 12px;
+  }
+  
+  .section-promos a[href="/skin-test"]:not(.promo-card),
+  .section-promos a[href*="wildberries.ru"]:not(.promo-card) {
+    border-radius: 16px;
+    min-height: 300px;
+  }
+  
+  /* Уменьшаем эффекты hover на мобильных */
+  [href^="/products/"]:hover,
+  .section-promos a[href="/skin-test"]:not(.promo-card):hover,
+  .section-promos a[href*="wildberries.ru"]:not(.promo-card):hover {
+    transform: none;
+  }
+}
+
+/* ========================================
+   УЛУЧШЕНИЯ ИЗОБРАЖЕНИЙ - ДОБАВЛЕНО 15.01.2025
+   ======================================== */
+
+/* Карточка продукта - фиксированная структура */
+.product-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  background: white !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Контейнер изображения - фиксированная высота */
+.product-card > div:first-child {
+  height: 350px !important;
+  min-height: 350px !important;
+  max-height: 350px !important;
+  background: linear-gradient(135deg, #faf8f6 0%, #ffffff 100%) !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Изображение продукта - contain с отступами */
+.product-card img {
+  object-fit: contain !important;
+  padding: 30px !important;
+  transition: transform 0.4s ease !important;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Контент карточки - растягивается */
+.product-card > div:last-child {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  padding: 24px !important;
+}
+
+/* Заголовок - фиксированная высота */
+.product-card h3 {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: #1a1a1a !important;
+  margin-bottom: 12px !important;
+  min-height: 50px !important;
+  max-height: 50px !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+/* Описание - фиксированная высота */
+.product-card p {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #666 !important;
+  margin-bottom: 20px !important;
+  min-height: 67px !important;
+  max-height: 67px !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+}
+
+/* Кнопка "Подробнее" */
+.product-card a[href^="/products"] {
+  display: block !important;
+  width: 100% !important;
+  padding: 12px !important;
+  background: #f5f5f5 !important;
+  color: #333 !important;
+  text-align: center !important;
+  border-radius: 10px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  margin-bottom: 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.product-card a[href^="/products"]:hover {
+  background: #e8e8e8 !important;
+}
+
+/* Заголовок "Купить:" */
+.product-card > div:last-child > div:first-of-type {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #999 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-top: auto !important;
+  margin-bottom: 10px !important;
+}
+
+/* Сетка кнопок магазинов */
+.product-card > div:last-child > div:last-of-type {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 8px !important;
+}
+
+/* Кнопки магазинов - единый стиль */
+.product-card a[href*="wildberries"],
+.product-card a[href*="ozon"],
+.product-card a[href*="letual"],
+.product-card a[href*="apteka"] {
+  padding: 10px 8px !important;
+  border-radius: 8px !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Цвета кнопок */
+.product-card a[href*="wildberries"] {
+  background: #CB11AB !important;
+  color: white !important;
+}
+
+.product-card a[href*="wildberries"]:hover {
+  background: #B00F96 !important;
+  transform: translateY(-2px) !important;
+}
+
+.product-card a[href*="ozon"] {
+  background: #005BFF !important;
+  color: white !important;
+}
+
+.product-card a[href*="ozon"]:hover {
+  background: #0047CC !important;
+  transform: translateY(-2px) !important;
+}
+
+.product-card a[href*="letual"] {
+  background: #000000 !important;
+  color: white !important;
+}
+
+.product-card a[href*="letual"]:hover {
+  background: #333333 !important;
+  transform: translateY(-2px) !important;
+}
+
+.product-card a[href*="apteka"] {
+  background: #00A651 !important;
+  color: white !important;
+}
+
+.product-card a[href*="apteka"]:hover {
+  background: #008C44 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .product-card > div:first-child {
+    height: 280px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
+  }
+  
+  .product-card img {
+    padding: 20px !important;
+  }
+  
+  .product-card h3 {
+    font-size: 16px !important;
+  }
+  
+  .product-card p {
+    font-size: 13px !important;
+  }
+  
+  .product-card:hover {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card > div:first-child {
+    height: 240px !important;
+    min-height: 240px !important;
+    max-height: 240px !important;
+  }
+}
+
+/* Улучшаем promo карточки (главная страница) */
+.promo-card {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.promo-card:hover {
+  transform: translateY(-10px) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25) !important;
+}
+
+.promo-card img,
+.promo-media img {
+  object-fit: cover !important;
+  transition: transform 0.5s ease;
+}
+
+.promo-card:hover img,
+.promo-card:hover .promo-media img {
+  transform: scale(1.08) !important;
+}
+
+/* Плавная анимация для всех изображений */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .product-card:hover,
+  .promo-card:hover {
+    transform: none !important;
+  }
+}
+
+/* ========================================
+   ГЛОБАЛЬНЫЕ АНИМАЦИИ
+   ======================================== */
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.5s ease-out;
+}
+
+.animate-slide-left {
+  animation: slideInFromLeft 0.6s ease-out;
+}
+
+.animate-slide-right {
+  animation: slideInFromRight 0.6s ease-out;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3 {
+  animation: fadeIn 0.8s ease-out;
+}
+
+button,
+a {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}button:hover,
+a:hover {
+  transform: translateY(-2px);
+}
+
+button:active,
+a:active {
+  transform: translateY(0);
+}
+
+img {
+  transition: transform 0.4s ease, opacity 0.3s ease !important;
+}
+
+a:not(.no-hover) {
+  position: relative;
+}
+
+a:not(.no-hover):hover {
+  color: var(--color-accent, #d4af37);
+}
+
+main > * {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.parallax {
+  transition: transform 0.1s ease-out;
+}
+
+/* ========================================
+   PREMIUM ANIMATIONS AND EFFECTS
+   ======================================== */
+
+/* Custom cursor */
+.custom-cursor,
+.custom-cursor-trail {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out;
+}
+
+.custom-cursor {
+  background: rgba(212, 175, 55, 0.8);
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-trail {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  background: transparent;
+  transition: transform 0.3s ease-out;
+}
+
+@media (max-width: 768px) {
+  .custom-cursor,
+  .custom-cursor-trail {
+    display: none;
+  }
+}
+
+/* Scroll progress */
+.scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 9998;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37 0%, #f4d03f 100%);
+  transition: width 0.1s ease-out;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Reveal animations */
+.reveal-animation {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-animation.visible {
+  opacity: 1;
+}
+
+.reveal-animation.fade {
+  transform: translateY(0);
+}
+
+.reveal-animation.slide-up {
+  transform: translateY(50px);
+}
+
+.reveal-animation.slide-up.visible {
+  transform: translateY(0);
+}
+
+.reveal-animation.slide-left {
+  transform: translateX(-50px);
+}
+
+.reveal-animation.slide-left.visible {
+  transform: translateX(0);
+}
+
+.reveal-animation.slide-right {
+  transform: translateX(50px);
+}
+
+.reveal-animation.slide-right.visible {
+  transform: translateX(0);
+}
+
+.reveal-animation.zoom {
+  transform: scale(0.8);
+}
+
+.reveal-animation.zoom.visible {
+  transform: scale(1);
+}
+
+.reveal-animation.flip {
+  transform: perspective(1000px) rotateY(-90deg);
+}
+
+.reveal-animation.flip.visible {
+  transform: perspective(1000px) rotateY(0);
+}
+
+/* Animated counter */
+.animated-counter {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Magnetic button */
+.magnetic-button {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Parallax card */
+.parallax-card {
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.parallax-card > * {
+  transform: translateZ(20px);
+}
+
+/* Animated text */
+.animated-text-gradient {
+  background: linear-gradient(
+    90deg,
+    #d4af37 0%,
+    #f4d03f 25%,
+    #d4af37 50%,
+    #f4d03f 75%,
+    #d4af37 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s linear infinite;
+}
+
+@keyframes gradient-shift {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.typing-cursor {
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Floating */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}/* Ripple */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.5);
+  width: 20px;
+  height: 20px;
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+/* Glow */
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+  }
+}
+
+/* Shake */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+/* Pulse */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Smooth card transitions */
+.product-card,
+.promo-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover,
+.promo-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}

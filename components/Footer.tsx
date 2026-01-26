@@ -23,14 +23,19 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-primary text-white py-12">
+    <footer className="footer-premium bg-primary text-white py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-display text-xl font-bold mb-4">BOTE</h3>
-            <p className="text-gray-400 text-sm">
-              Персональная косметика для вашей кожи
-            </p>
+            <Link href="/" className="footer-logo-link">
+              <div className="footer-logo on-dark">
+                <img 
+                  src="/images/via-labote-logo.svg" 
+                  alt="VIA LABOTE - Персональная косметика для вашей кожи" 
+                  className="brand-logo"
+                />
+              </div>
+            </Link>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Навигация</h4>

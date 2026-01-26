@@ -17,8 +17,24 @@ export default function SkinTestPage() {
   const isLastQuestion = currentQuestion === quizQuestions.length - 1;
   const isFirstQuestion = currentQuestion === 0;
 
+  // Функция для преобразования question.id в ключ QuizAnswers
+  const getIdToKey = (id: number): keyof QuizAnswers | null => {
+    const mapping: Record<number, keyof QuizAnswers> = {
+      1: "skinType",
+      2: "goal",
+      3: "problems",
+      4: "sensitivity",
+      5: "routine",
+      6: "allergies",
+      7: "age",
+      8: "setSize",
+    };
+    return mapping[id] || null;
+  };
+
   // Загружаем сохраненный ответ для текущего вопроса
-  const currentAnswer = answers[question.id as keyof QuizAnswers];
+  const questionKey = getIdToKey(question.id);
+  const currentAnswer = questionKey ? answers[questionKey] : undefined;
   if (currentAnswer && selectedOptions.length === 0) {
     if (Array.isArray(currentAnswer)) {
       setSelectedOptions(currentAnswer);
@@ -32,35 +48,24 @@ export default function SkinTestPage() {
 
     const newAnswers = { ...answers };
     if (question.type === "single") {
-      const key = question.id === 1 ? "skinType" :
-                  question.id === 2 ? "goal" :
-                  question.id === 3 ? "problems" :
-                  question.id === 4 ? "sensitivity" :
-                  question.id === 5 ? "routine" :
-                  question.id === 6 ? "allergies" :
-                  question.id === 7 ? "age" :
-                  question.id === 8 ? "setSize" : "unknown";
-      if (key !== "unknown" && key !== "problems") {
-        setAnswer(key as keyof QuizAnswers, selectedOptions[0]);
+      const key = getIdToKey(question.id);
+      if (key && key !== "problems") {
+        setAnswer(key, selectedOptions[0] as string);
       } else if (key === "problems") {
         setAnswer("problems", selectedOptions);
       }
     } else {
-      setAnswer(question.id === 3 ? "problems" : "unknown", selectedOptions);
+      if (question.id === 3) {
+        setAnswer("problems", selectedOptions);
+      }
     }
 
     if (isLastQuestion) {
       const finalAnswers = { ...answers };
       if (question.type === "single") {
-        const key = question.id === 1 ? "skinType" :
-                    question.id === 2 ? "goal" :
-                    question.id === 4 ? "sensitivity" :
-                    question.id === 5 ? "routine" :
-                    question.id === 6 ? "allergies" :
-                    question.id === 7 ? "age" :
-                    question.id === 8 ? "setSize" : "unknown";
-        if (key !== "unknown") {
-          finalAnswers[key as keyof QuizAnswers] = selectedOptions[0];
+        const key = getIdToKey(question.id);
+        if (key && key !== "problems") {
+          finalAnswers[key] = selectedOptions[0] as string;
         }
       } else {
         finalAnswers.problems = selectedOptions;
@@ -96,8 +101,107 @@ export default function SkinTestPage() {
   const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
 
   return (
-    <div className="min-h-screen bg-bg py-6 sm:py-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+    <div className="min-h-screen bg-bg">
+      {/* Personal Care Hero Banner - сразу под хедером, без отступов */}
+      <section className="personal-hero" aria-label="Персональный уход">
+          <picture className="personal-hero-media">
+            <source media="(max-width: 768px)" srcSet="/images/personal-mobile-23.png" />
+            <img 
+              src="/images/banner-personal-care.png" 
+              alt="Персональный уход VIA LABOTE" 
+              className="personal-hero-img"
+            />
+          </picture>
+
+          {/* Subtle light sweep - раз в 10-12 секунд */}
+          <div className="personal-light-sweep" aria-hidden="true"></div>
+          
+          <div className="personal-hero-overlay">
+            <div className="personal-hero-copy">
+              <h1 className="personal-hero-title">Персональная формула вашей кожи</h1>
+              <p className="personal-hero-text">
+                Лаборатория персональной косметики,
+                <br />
+                где каждая формула — точный ответ коже
+              </p>
+            </div>
+          </div>
+          
+          {/* Логотип отдельно - в правом нижнем углу */}
+          <img 
+            src="/images/logo-hero.png" 
+            alt="VIA LABOTE" 
+            className="personal-hero-logo"
+          />
+        </section>
+
+      <div className="page-container pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 lg:pb-20">
+        {/* Почему персональный уход лучше? */}
+        <section className="pc-benefits" aria-label="Почему персональный уход лучше">
+          <h2 className="pc-benefits-title">Почему персональный уход лучше?</h2>
+
+          <div className="pc-benefits-grid">
+            <div className="pc-benefit">
+              <span className="pc-check">✓</span>
+              Учитывает тип кожи
+            </div>
+
+            <div className="pc-benefit">
+              <span className="pc-check">✓</span>
+              Решает конкретную проблему
+            </div>
+
+            <div className="pc-benefit">
+              <span className="pc-check">✓</span>
+              Активы и концентрации под вас
+            </div>
+
+            <div className="pc-benefit">
+              <span className="pc-check">✓</span>
+              Быстрый результат
+            </div>
+
+            <div className="pc-benefit">
+              <span className="pc-check">✓</span>
+              Безопасно для чувствительной кожи
+            </div>
+          </div>
+        </section>
+
+        {/* Как проходит подбор? */}
+        <section className="pc-steps" aria-label="Как проходит подбор">
+          <div className="pc-steps-head">
+            <h2 className="pc-steps-title">Как проходит подбор?</h2>
+          </div>
+
+          <div className="pc-steps-grid">
+            <article className="pc-step">
+              <div className="pc-step-badge">1</div>
+              <h3 className="pc-step-title">Вы проходите короткий тест</h3>
+              <p className="pc-step-text">8 простых вопросов о вашей коже</p>
+            </article>
+
+            <article className="pc-step">
+              <div className="pc-step-badge">2</div>
+              <h3 className="pc-step-title">Мы анализируем ваш тип кожи</h3>
+              <p className="pc-step-text">Алгоритм подбирает оптимальную формулу</p>
+            </article>
+
+            <article className="pc-step">
+              <div className="pc-step-badge">3</div>
+              <h3 className="pc-step-title">Подбираем персональный уход</h3>
+              <p className="pc-step-text">2–4 средства специально для вас</p>
+            </article>
+
+            <article className="pc-step">
+              <div className="pc-step-badge">4</div>
+              <h3 className="pc-step-title">Вы получаете набор, который работает</h3>
+              <p className="pc-step-text">Персональная формула с инструкцией</p>
+            </article>
+          </div>
+        </section>
+
+        <div className="skin-test-container">
         {/* Progress Bar */}
         <div className="mb-6 sm:mb-8">
           <div className="flex justify-between text-xs sm:text-sm text-gray-600 mb-2 px-2">
@@ -137,8 +241,8 @@ export default function SkinTestPage() {
                     onClick={() => handleOptionSelect(option.value)}
                     className={`w-full text-left p-4 sm:p-6 rounded-card border-2 transition-all min-h-[56px] sm:min-h-[64px] ${
                       isSelected
-                        ? "border-accent bg-accent/5 shadow-soft"
-                        : "border-line hover:border-accent/50 bg-bg"
+                        ? "border-accent bg-white shadow-[0_0_0_3px_rgba(196,162,84,0.18)]"
+                        : "border-line hover:border-accent/50 bg-white"
                     }`}
                   >
                     <span className="font-medium text-primary text-sm sm:text-base">
@@ -178,8 +282,8 @@ export default function SkinTestPage() {
             <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
+        </div>
       </div>
     </div>
   );
 }
-

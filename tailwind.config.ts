@@ -11,8 +11,8 @@ const config: Config = {
       colors: {
         primary: "#000000",
         accent: "#C4A254",
-        bg: "#FFFFFF",
-        soft: "#F7F7F7",
+        bg: "#FEFEFE", /* тёплый айвори вместо чистого белого */
+        soft: "#FEFEFE", /* тёплый айвори */
         line: "#EDEDED",
         gold: {
           50: "#fef9e7",
@@ -34,7 +34,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-playfair)", "serif"],
+        display: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         button: "10px",
@@ -63,4 +63,3 @@ const config: Config = {
   plugins: [],
 };
 export default config;
-

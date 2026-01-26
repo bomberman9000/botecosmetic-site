@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroScrollEffect from "@/components/HeroScrollEffect";
+import CustomCursor from "@/components/CustomCursor";
+import ScrollProgress from "@/components/ScrollProgress";
+import ParticleBackground from "@/components/ParticleBackground";
 
 const inter = Inter({ 
   subsets: ["latin", "cyrillic"],
   variable: "--font-inter",
 });
 
-const playfair = Playfair_Display({ 
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-playfair",
-});
-
 export const metadata: Metadata = {
-  title: "Персональная косметика BOTE — индивидуальный подбор ухода по типу кожи",
+  title: "VIA LABOTE — персональная косметика премиум-класса",
   description:
-    "Онлайн-подбор ухода по типу кожи: сыворотки, кремы, очищение, anti-age, anti-acne. Персональные формулы BOTE на основе натуральных активов и лабораторных разработок.",
+    "Персональный подбор ухода по типу кожи. Лабораторные формулы с активными компонентами. Индивидуальный подход к уходу за кожей.",
   keywords: [
     "персональная косметика",
     "подбор ухода онлайн",
@@ -26,12 +25,14 @@ export const metadata: Metadata = {
     "ниацинамид",
     "натуральная косметика",
     "лабораторная косметика",
+    "премиум косметика",
+    "VIA LABOTE",
   ],
   openGraph: {
-    title: "Персональная косметика BOTE — индивидуальный подбор ухода",
+    title: "VIA LABOTE — персональная косметика премиум-класса",
     description:
-      "Пройдите тест и получите персональную формулу ухода для лица от бренда BOTE.",
-    siteName: "BOTEcosmetic",
+      "Персональный подбор ухода по типу кожи. Лабораторные формулы с активными компонентами. Индивидуальный подход к уходу за кожей.",
+    siteName: "VIA LABOTE",
     locale: "ru_RU",
     type: "website",
   },
@@ -45,7 +46,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className="scroll-smooth">
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
+        <ParticleBackground />
+        <ScrollProgress />
+        <CustomCursor />
+        <HeroScrollEffect />
         <Header />
         <main className="min-h-screen">
           {children}
@@ -55,4 +60,3 @@ export default function RootLayout({
     </html>
   );
 }
-

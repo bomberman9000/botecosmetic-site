@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ShoppingCart, CheckCircle } from "lucide-react";
+import { ShoppingCart, CheckCircle, ExternalLink } from "lucide-react";
 import { getProductById, Product } from "@/lib/products";
 
 export default function ProductPage() {
@@ -37,6 +37,35 @@ export default function ProductPage() {
       </div>
     );
   }
+
+  const marketplaceLinks = [
+    {
+      label: "Wildberries",
+      url: product.wildberriesUrl,
+      className: "bg-[#CB11AB] text-white border-[#CB11AB] hover:bg-[#B00F96]",
+    },
+    {
+      label: "Ozon",
+      url: product.ozonUrl,
+      className: "bg-[#005BFF] text-white border-[#005BFF] hover:bg-[#0047CC]",
+    },
+    {
+      label: "Л'Этуаль",
+      url: product.letualUrl,
+      className: "bg-[#000000] text-white border-[#000000] hover:bg-[#333333]",
+    },
+    {
+      label: "Аптека.ру",
+      url: product.aptekaUrl,
+      className: "bg-[#00A651] text-white border-[#00A651] hover:bg-[#008C44]",
+    },
+  ].filter(
+    (
+      link
+    ): link is { label: string; url: string; className: string } =>
+      Boolean(link.url)
+  );
+  const hasMarketplace = marketplaceLinks.length > 0;
 
   return (
     <div className="min-h-screen bg-bg py-12">
@@ -110,33 +139,56 @@ export default function ProductPage() {
               </div>
             )}
 
-            {/* Price and Add to Cart */}
-            <div className="border-t border-line pt-8">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <p className="text-gray-600 mb-2">Цена</p>
-                  <p className="text-4xl font-bold text-primary">
-                    {product.price}₽
-                  </p>
-                  {product.volume && (
-                    <p className="text-gray-600 mt-1">{product.volume}</p>
-                  )}
+            {hasMarketplace ? (
+              <div className="border-t border-line pt-8">
+                <div className="text-xs text-gray-500 font-medium mb-3 flex items-center gap-2">
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                  Купить:
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {marketplaceLinks.map((link) => {
+                    return (
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`w-full flex items-center justify-center gap-2 px-6 py-4 rounded-button font-medium text-sm sm:text-base transition-colors border-2 ${link.className}`}
+                      >
+                        Купить на {link.label}
+                        <ExternalLink className="w-5 h-5" />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleAddToCart}
-                className="w-full flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-button font-medium text-lg hover:bg-accent transition-colors border-2 border-primary"
-              >
-                <ShoppingCart className="w-5 h-5" />
-                Добавить в корзину
-              </motion.button>
-            </div>
+            ) : (
+              <div className="border-t border-line pt-8">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <p className="text-gray-600 mb-2">Цена</p>
+                    <p className="text-4xl font-bold text-primary">
+                      {product.price}₽
+                    </p>
+                    {product.volume && (
+                      <p className="text-gray-600 mt-1">{product.volume}</p>
+                    )}
+                  </div>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleAddToCart}
+                  className="w-full flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-button font-medium text-lg hover:bg-accent transition-colors border-2 border-primary"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  Добавить в корзину
+                </motion.button>
+              </div>
+            )}
           </motion.div>
         </div>
       </div>
     </div>
   );
 }
-
