@@ -110,6 +110,10 @@ export default function Home() {
               media="(max-width: 768px)"
               srcSet="/images/hero-banner-mobile.png"
             />
+            <source
+              media="(max-width: 1024px)"
+              srcSet="/images/hero-banner-tablet.png"
+            />
             <img
               src="/images/hero-banner.png"
               alt="VIA LABOTE"
