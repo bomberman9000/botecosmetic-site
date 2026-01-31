@@ -1248,6 +1248,11 @@ header.site-header.is-scrolled {
     gap: 14px;
   }
 
+  .hero-brand,
+  .hero-tagline {
+    display: none;
+  }
+
   .hero-emblem {
     width: 80px;
     height: 80px;
