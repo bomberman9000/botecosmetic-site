@@ -107,7 +107,7 @@ export default function Home() {
         <div className="hero-content">
           <div className="hero-brand">
             <img
-              src="/images/hero-oval-logo.svg"
+              src="/images/hero/hero-oval-logo.svg"
               alt="VIA LABOTE logo"
               className="hero-emblem"
             />
@@ -122,14 +122,14 @@ export default function Home() {
           <picture className="hero-media">
             <source
               media="(max-width: 768px)"
-              srcSet="/images/hero-banner-mobile.png"
+              srcSet="/images/hero/hero-general-mobile.png"
             />
             <source
               media="(max-width: 1024px)"
-              srcSet="/images/hero-banner-tablet.png"
+              srcSet="/images/hero/hero-general-tablet.png"
             />
             <img
-              src="/images/hero-banner.png"
+              src="/images/hero/hero-general.png"
               alt="Портрет VIA LABOTE"
               className="hero-img"
             />

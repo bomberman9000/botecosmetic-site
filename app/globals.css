@@ -693,7 +693,7 @@ header.site-header.is-scrolled {
   outline: none;
 }
 
-/* Hero Section - Scroll Fade Effect */
+/* Hero Section - Scroll Fade Effect (как на скриншоте: бежевый фон, белый текст) */
 .hero {
   --scroll: 0;
   position: relative;
@@ -701,11 +701,11 @@ header.site-header.is-scrolled {
   min-height: 520px;
   height: clamp(520px, 62vh, 720px);
   display: grid;
-  grid-template-columns: minmax(0, 43%) minmax(0, 57%);
+  grid-template-columns: minmax(0, 35%) minmax(0, 65%);
   align-items: stretch;
   overflow: hidden;
   border-radius: 0;
-  background: #e5d4c1;
+  background: #D5C7B3;
   isolation: isolate;
   will-change: opacity, transform, filter;
 
@@ -934,9 +934,8 @@ header.site-header.is-scrolled {
 .hero-img {
   min-height: 520px;
   object-fit: cover;
-  object-position: 62% 22%; /* фокус на лице */
+  object-position: 60% 40%; /* фокус на лице модели */
   filter: brightness(1.02) contrast(1.02);
-  /* Эффект "дышащей кожи" - едва заметный zoom */
   animation: breathingSkin 10s ease-in-out infinite;
 }
 
@@ -950,7 +949,7 @@ header.site-header.is-scrolled {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Hero Copy */
+/* Hero Copy — белый текст на бежевом фоне (как на скриншоте) */
 .hero-content {
   position: relative;
   z-index: 3;
@@ -960,8 +959,8 @@ header.site-header.is-scrolled {
   align-items: flex-start;
   gap: 20px;
   padding: 64px 24px 64px 64px;
-  color: #20245b;
-  max-width: 520px;
+  color: #fff;
+  max-width: 480px;
 }
 
 .hero-brand {
@@ -974,22 +973,20 @@ header.site-header.is-scrolled {
 .hero-emblem {
   width: 112px;
   height: 112px;
-  padding: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
+  padding: 8px;
   object-fit: contain;
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
 }
 
 .hero-title {
   margin: 0;
   font-family: var(--font-inter);
   font-size: clamp(34px, 4.4vw, 60px);
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #20245b;
-  text-shadow: none;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .hero-tagline {
@@ -997,23 +994,22 @@ header.site-header.is-scrolled {
   font-size: clamp(14px, 1.9vw, 20px);
   line-height: 1.7;
   letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.96);
-  max-width: 430px;
-  text-shadow: 0 6px 20px rgba(32, 36, 91, 0.35);
+  color: rgba(255, 255, 255, 0.98);
+  max-width: 400px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Лёгкий оверлей для читабельности */
-/* Cinematic градиент снизу + мягкий vignette */
+/* Оверлей: мягкий переход бежевого в прозрачность (как на скриншоте) */
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(229, 212, 193, 0.98) 0%,
-    rgba(229, 212, 193, 0.9) 45%,
-    rgba(229, 212, 193, 0.65) 62%,
-    rgba(229, 212, 193, 0) 78%
+    rgba(213, 199, 179, 0.95) 0%,
+    rgba(213, 199, 179, 0.7) 40%,
+    rgba(213, 199, 179, 0.3) 55%,
+    transparent 70%
   );
   pointer-events: none;
   z-index: 1;
@@ -1205,7 +1201,7 @@ header.site-header.is-scrolled {
 
 @media (max-width: 1024px) {
   .hero {
-    grid-template-columns: minmax(0, 46%) minmax(0, 54%);
+    grid-template-columns: minmax(0, 38%) minmax(0, 62%);
   }
 
   .hero-content {
@@ -1276,9 +1272,9 @@ header.site-header.is-scrolled {
   .hero::after {
     background: linear-gradient(
       90deg,
-      rgba(229, 212, 193, 0.98) 0%,
-      rgba(229, 212, 193, 0.85) 60%,
-      rgba(229, 212, 193, 0) 92%
+      rgba(213, 199, 179, 0.95) 0%,
+      rgba(213, 199, 179, 0.7) 55%,
+      transparent 88%
     );
   }
 }
