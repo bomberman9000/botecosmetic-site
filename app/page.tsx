@@ -104,6 +104,20 @@ export default function Home() {
       
       {/* Hero Section - Premium Banner */}
       <section className="hero" aria-label="VIA LABOTE hero">
+        <div className="hero-content">
+          <div className="hero-brand">
+            <img
+              src="/images/logo-hero.png"
+              alt="VIA LABOTE logo"
+              className="hero-emblem"
+            />
+          </div>
+          <h1 className="hero-title">ВИА ЛАБОТЕ</h1>
+          <p className="hero-tagline">
+            «Лаборатория персональной косметики, где каждая формула — точный ответ коже»
+          </p>
+        </div>
+
         <div className="hero-parallax">
           <picture className="hero-media">
             <source
@@ -116,21 +130,10 @@ export default function Home() {
             />
             <img
               src="/images/hero-banner.png"
-              alt="VIA LABOTE"
+              alt="Портрет VIA LABOTE"
               className="hero-img"
             />
           </picture>
-        </div>
-
-        <div className="light-sweep" aria-hidden="true"></div>
-
-        <div className="hero-overlay">
-          <h1 className="hero-h1-fashion">Персональная формула вашей кожи</h1>
-          <img 
-            src="/images/via-labote-logo.svg" 
-            alt="VIA LABOTE" 
-            className="hero-logo-fashion"
-          />
         </div>
       </section>
 
