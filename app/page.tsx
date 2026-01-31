@@ -107,7 +107,7 @@ export default function Home() {
         <div className="hero-content">
           <div className="hero-brand">
             <img
-              src="/images/logo-hero.png"
+              src="/images/hero-oval-logo.svg"
               alt="VIA LABOTE logo"
               className="hero-emblem"
             />
