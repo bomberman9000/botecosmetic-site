@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { MessageSquare, Instagram, Youtube } from "lucide-react";
 
 export default function Footer() {
@@ -23,23 +24,25 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="footer-premium bg-primary text-white py-12">
+    <footer className="footer footer-glass text-white py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
             <Link href="/" className="footer-logo-link">
-              <div className="footer-logo on-dark">
-                <img 
-                  src="/images/via-labote-logo.svg" 
+              <div className="footer-logo">
+                <Image
+                  src="/images/logo/logo-hero-1.png" 
                   alt="VIA LABOTE - Персональная косметика для вашей кожи" 
                   className="brand-logo"
+                  width={190}
+                  height={42}
                 />
               </div>
             </Link>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Навигация</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-300">
               <li>
                 <Link href="/" className="hover:text-accent transition-colors">
                   Главная
@@ -59,7 +62,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="font-semibold mb-4">Информация</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-300">
               <li>
                 <Link href="/contacts" className="hover:text-accent transition-colors">
                   Контакты
@@ -86,14 +89,14 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-accent transition-colors"
+                  className="text-gray-300 hover:text-accent transition-colors"
                   aria-label={social.name}
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
               ))}
             </div>
-            <p className="text-sm text-gray-400 mt-4">
+            <p className="text-sm text-gray-300 mt-4">
               Email:{" "}
               <a
                 href="mailto:botecosmetic@mail.ru"
@@ -104,11 +107,10 @@ export default function Footer() {
             </p>
           </div>
         </div>
-        <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+        <div className="border-t border-white/10 pt-8 text-center text-sm text-gray-300">
           <p>&copy; 2025 BOTE Cosmetic. Все права защищены.</p>
         </div>
       </div>
     </footer>
   );
 }
-

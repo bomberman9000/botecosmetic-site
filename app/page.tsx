@@ -82,7 +82,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col home-page">
       {/* Микроразметка для SEO */}
       <script
         type="application/ld+json"
@@ -93,7 +93,7 @@ export default function Home() {
             "name": "VIA LABOTE",
             "description": "Персональная косметика премиум-класса. Лабораторные формулы с активными компонентами.",
             "url": "https://bote-cosmetic.ru",
-            "logo": "https://bote-cosmetic.ru/images/via-labote-logo.svg",
+            "logo": "https://bote-cosmetic.ru/images/logo/logo-hero-1.png",
             "sameAs": [
               "https://t.me/botecosmetic",
               "https://instagram.com/bote_cosmetic"
@@ -106,34 +106,41 @@ export default function Home() {
       <section className="hero" aria-label="VIA LABOTE hero">
         <div className="hero-content">
           <div className="hero-brand">
-            <img
-              src="/images/hero/hero-oval-logo.svg"
+            <Image
+              src="/images/logo/logo-hero-1.png"
               alt="VIA LABOTE logo"
               className="hero-emblem"
+              width={180}
+              height={80}
+              priority
             />
           </div>
           <h1 className="hero-title">ВИА ЛАБОТЕ</h1>
           <p className="hero-tagline">
             «Лаборатория персональной косметики, где каждая формула — точный ответ коже»
           </p>
+          <a href="/skin-test" className="hero-mobile-cta" aria-label="Пройти тест и подобрать уход">
+            Пройти тест и подобрать уход
+          </a>
         </div>
 
         <div className="hero-parallax">
-          <picture className="hero-media">
-            <source
-              media="(max-width: 768px)"
-              srcSet="/images/hero/hero-general-mobile.png"
-            />
-            <source
-              media="(max-width: 1024px)"
-              srcSet="/images/hero/hero-general-tablet.png"
-            />
-            <img
-              src="/images/hero/hero-general.png"
-              alt="Портрет VIA LABOTE"
-              className="hero-img"
-            />
-          </picture>
+          <div className="hero-media relative">
+            <picture>
+              <source
+                media="(max-width: 768px)"
+                srcSet="/images/hero/hero-main-mobile-custom.webp"
+              />
+              <Image
+                src="/images/hero/hero-main-desktop-custom.webp"
+                alt="Портрет VIA LABOTE"
+                className="hero-img"
+                fill
+                sizes="100vw"
+                priority
+              />
+            </picture>
+          </div>
         </div>
       </section>
 
@@ -152,7 +159,7 @@ export default function Home() {
             >
               <div className="relative w-full h-[420px] sm:h-[500px] md:h-[420px] promo-media">
                 <Image
-                  src="/images/cards/z1.png"
+                  src="/images/cards/z1.webp"
                   alt="Твоя индивидуальная история"
                   fill
                   className="object-cover transition-transform duration-350 ease-out group-hover:scale-[1.03]"
@@ -188,10 +195,10 @@ export default function Home() {
                 <picture>
                   <source
                     media="(max-width: 768px)"
-                    srcSet="/images/products/banner2_mobile_900x1200.jpg"
+                    srcSet="/images/products/ready-care-mobile-custom.webp"
                   />
                   <Image
-                    src="/images/products/1278.png"
+                    src="/images/products/ready-care-desktop-custom.webp"
                     alt="Твой готовый уход"
                     fill
                     className="object-cover transition-transform duration-350 ease-out group-hover:scale-[1.03]"
@@ -300,6 +307,15 @@ export default function Home() {
           <WildberriesReviews limit={6} showLink />
         </div>
       </section>
+
+      {/* Mobile Sticky CTA */}
+      <a
+        href="/skin-test"
+        className="mobile-sticky-cta"
+        aria-label="Перейти к тесту подбора ухода"
+      >
+        Пройти тест
+      </a>
 
     </div>
   );

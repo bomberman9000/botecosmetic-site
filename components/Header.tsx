@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 interface NavItem {
   href: string;
   label: string;
+  mobileLabel?: string;
   dropdown?: Array<{ href: string; label: string }>;
 }
 
@@ -59,11 +61,11 @@ export default function Header() {
   };
 
   const navItems: NavItem[] = [
-    { href: "/", label: "ГЛАВНАЯ" },
-    { href: "/about", label: "ИСТОРИЯ БРЕНДА" },
-    { href: "/skin-test", label: "ПЕРСОНАЛЬНЫЙ УХОД" },
-    { href: "/products", label: "ГОТОВЫЙ УХОД" },
-    { href: "/loyalty", label: "ПРОГРАММА ЛОЯЛЬНОСТИ" },
+    { href: "/", label: "ГЛАВНАЯ", mobileLabel: "Главная" },
+    { href: "/about", label: "ИСТОРИЯ БРЕНДА", mobileLabel: "История" },
+    { href: "/skin-test", label: "ПЕРСОНАЛЬНЫЙ УХОД", mobileLabel: "Персональный" },
+    { href: "/products", label: "ГОТОВЫЙ УХОД", mobileLabel: "Готовый уход" },
+    { href: "/loyalty", label: "ПРОГРАММА ЛОЯЛЬНОСТИ", mobileLabel: "Лояльность" },
   ];
 
   return (
@@ -79,14 +81,19 @@ export default function Header() {
           {/* Logo & Brand Tagline */}
           <div className="logo-wrapper flex-shrink-0">
             <Link href="/" className="flex items-center header-logo-link brand">
-              <img 
-                src="/images/via-labote-logo.svg" 
+              <Image
+                src="/images/logo/logo-hero-1.png" 
                 alt="VIA LABOTE" 
-                className="brand-logo"
+                className="brand-logo header-brand-logo"
+                width={210}
+                height={56}
+                priority
               />
               <div className="brand-tagline">
                 <div className="brand-title">КОНЦЕПТОР УХОДА</div>
-                <div className="brand-subtitle">день и ночь, чтобы раскрыть красоту и долговечность любой кожи</div>
+                <div className="brand-subtitle">
+                  день и ночь, чтобы раскрыть красоту и долговечность любой кожи
+                </div>
               </div>
             </Link>
           </div>
@@ -145,7 +152,7 @@ export default function Header() {
                 }`}
                 aria-current={isActive(item.href) ? "page" : undefined}
               >
-                {item.label}
+                {item.mobileLabel || item.label}
               </Link>
             ))}
           </div>

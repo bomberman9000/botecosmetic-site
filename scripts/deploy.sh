@@ -41,7 +41,7 @@ check() {
 echo "--- Проверка сайта ---"
 check "${BASE_URL}/" "Homepage"
 check "${BASE_URL}/result?x=1" "Result page"
-check "${BASE_URL}/images/hero-desktop.png" "Hero desktop"
-check "${BASE_URL}/images/hero-mobile.png" "Hero mobile"
+check "${BASE_URL}/images/hero/hero-general.webp" "Hero desktop"
+check "${BASE_URL}/images/personal-mobile-23.webp" "Hero mobile"
 
 echo "✨ DEPLOY OK: build + restart + checks passed"

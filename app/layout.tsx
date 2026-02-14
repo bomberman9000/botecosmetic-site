@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroScrollEffect from "@/components/HeroScrollEffect";
-import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import ParticleBackground from "@/components/ParticleBackground";
 
@@ -45,11 +44,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className="scroll-smooth">
-      <body className={`${inter.variable} antialiased`}>
+    <html lang="ru" className={`scroll-smooth ${inter.variable}`}>
+      <body className="antialiased">
         <ParticleBackground />
         <ScrollProgress />
-        <CustomCursor />
         <HeroScrollEffect />
         <Header />
         <main className="min-h-screen">

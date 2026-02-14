@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { quizQuestions, QuizAnswers, getRecommendations } from "@/lib/quiz";
@@ -104,22 +105,49 @@ export default function SkinTestPage() {
     <div className="min-h-screen bg-bg">
       {/* Personal Care Hero Banner - сразу под хедером, без отступов */}
       <section className="personal-hero" aria-label="Персональный уход">
-          <picture className="personal-hero-media">
-            <source media="(max-width: 768px)" srcSet="/images/personal-mobile-23.png" />
-            <img 
-              src="/images/banner-personal-care.png" 
-              alt="Персональный уход VIA LABOTE" 
-              className="personal-hero-img"
+          <div className="personal-hero-media relative h-full min-h-[85vh]">
+            <Image
+              src="/images/personal-mobile-custom.webp"
+              alt="Персональный уход VIA LABOTE"
+              fill
+              className="personal-hero-img md:hidden"
+              sizes="100vw"
+              priority
             />
-          </picture>
+            <Image
+              src="/images/banner-personal-care.webp"
+              alt="Персональный уход VIA LABOTE"
+              fill
+              className="personal-hero-img hidden md:block"
+              sizes="100vw"
+              priority
+            />
+          </div>
 
           {/* Subtle light sweep - раз в 10-12 секунд */}
           <div className="personal-light-sweep" aria-hidden="true"></div>
           
           <div className="personal-hero-overlay">
-            <div className="personal-hero-copy">
-              <h1 className="personal-hero-title">Персональная формула вашей кожи</h1>
-              <p className="personal-hero-text">
+            <div
+              className="personal-hero-copy hidden md:block"
+              style={{
+                position: "absolute",
+                left: "64px",
+                top: "8%",
+                maxWidth: "min(48vw, 760px)",
+                zIndex: 3,
+              }}
+            >
+              <h1
+                className="personal-hero-title"
+                style={{ position: "static", maxWidth: "100%", margin: "0 0 18px" }}
+              >
+                Персональная формула вашей кожи
+              </h1>
+              <p
+                className="personal-hero-text"
+                style={{ position: "static", maxWidth: "100%", margin: 0 }}
+              >
                 Лаборатория персональной косметики,
                 <br />
                 где каждая формула — точный ответ коже
@@ -128,10 +156,12 @@ export default function SkinTestPage() {
           </div>
           
           {/* Логотип отдельно - в правом нижнем углу */}
-          <img 
-            src="/images/logo-hero.png" 
-            alt="VIA LABOTE" 
+          <Image
+            src="/images/logo-hero.png"
+            alt="VIA LABOTE"
             className="personal-hero-logo"
+            width={180}
+            height={36}
           />
         </section>
 
