@@ -8,7 +8,8 @@ module.exports = {
     instances: 1,
     autorestart: true,
     watch: false,
-    max_memory_restart: "1G",
+    // Prevent frequent PM2 restarts during normal Next.js memory spikes.
+    max_memory_restart: "1536M",
     env: {
       NODE_ENV: "production",
       PORT: "3001"

@@ -92,8 +92,8 @@ export default function Home() {
             "@type": "Organization",
             "name": "VIA LABOTE",
             "description": "Персональная косметика премиум-класса. Лабораторные формулы с активными компонентами.",
-            "url": "https://bote-cosmetic.ru",
-            "logo": "https://bote-cosmetic.ru/images/logo/logo-hero-1.png",
+            "url": "https://vialabote.ru",
+            "logo": "https://vialabote.ru/images/logo/logo-hero-1.png",
             "sameAs": [
               "https://t.me/botecosmetic",
               "https://instagram.com/bote_cosmetic"
